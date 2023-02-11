@@ -25,12 +25,22 @@ function findHero() {
     document.getElementById("results").innerHTML = lword;
 
     //extra credit display all of the heroes to the page
+    document.getElementById("namelist").innerHTML = marvelHeroes.join(" | ")
 
 }
 
 //takes an array of strings and returns the longest one. 
 function findLongestString(namesArry) {
+    var length = 0;
+    var longest;
 
-    return "";
+    for (var i = 0; i < namesArry.length; i++) {
+        if (namesArry[i].length > length) {
+            var length = namesArry[i].length;
+            longest = namesArry[i];
+        }
+    }
+
+    return longest;
 
 }

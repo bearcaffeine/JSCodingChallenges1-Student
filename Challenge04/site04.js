@@ -124,13 +124,23 @@ let cityData = [{
 
 //driver function used for display and passing values.
 function citySort() {
-
     
-    sortByPopulation(cityData, "desc");
+    sortBy = document.querySelector("#SortBy").value;
     
-    //extra credit functions
-    //sortyByName(cityData);
-    //sortByAge(cityData, "asc");
+    sortOrder = document.getElementsByName("Order");
+    
+    for (i = 0; i < sortOrder.length; i++) {
+        if (sortOrder[i].checked) {
+            if (sortBy == "pop") {
+                sortByPopulation(cityData, sortOrder[i].value);
+            } else if (sortBy == "city") {
+                sortByName(cityData, sortOrder[i].value);
+            } else {
+                sortByAge(cityData, sortOrder[i].value);
+            }
+            
+        }
+    }
     
     //used for display purposes. not need to change
     tbody = document.getElementById("results");
@@ -145,15 +155,49 @@ function citySort() {
 
 //takes an array of objects and sorts by population. 
 function sortByPopulation(cityData, sortDir) {
+    cityData.sort((a,b) => {
+
+        if (sortDir == "asc") {
+            return (a.population - b.population);
+        } else {
+            return (b.population - a.population);
+        }
+    });
     
 }
 
 //takes an array of objects and sorts by median age. 
 function sortByAge(cityData, sortDir){
-  
+    cityData.sort((a,b) => {
+
+        if (sortDir == "asc") {
+            return (a.median_age - b.median_age);
+        } else {
+            return (b.median_age - a.median_age);
+        }
+    });
 }
 
 //takes an array of objects and sorts by city name. 
-function sortyByName(cityData) {
-    
+function sortByName(cityData, sortDir) {
+    cityData.sort((a, b) => {
+        let x = a.city.toLowerCase();
+        let y = b.city.toLowerCase();
+
+        let compare = 0;
+
+        if (x < y) { 
+            compare = -1;
+        }
+        if (x > y) { 
+            compare = 1; 
+        }
+
+        if(sortDir == "asc") {
+            return compare;
+        } else {
+            return compare * -1;
+        }
+
+    });
 }

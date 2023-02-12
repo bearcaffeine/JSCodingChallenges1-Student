@@ -13,10 +13,12 @@ const testbrackets5 = "[()";
 function checkBrackets() {
 
     //change testbrackets here. makes easier to change in one place.
-    let testbrackets = testbrackets5;
+    let testbrackets = testbrackets2;
 
     //implement isBalanced function. checks if the bracket string is balanced.
-    let results = isBalanced(testbrackets);
+    //let results = isBalanced(testbrackets);
+
+    let results = isBalancedB(testbrackets);
 
     //used for display no need to change
     let msg = "";
@@ -73,4 +75,36 @@ function isBalanced(brackets) {
 
     return stack.length == 0;
 
+}
+
+function isBalancedB(brackets) {
+    let stack = [];
+    let openBrackets = ["(", "{", "["];
+    let closeBrackets = [")", "}", "]"];
+    const balancedBrackets = {
+        "(": ")",
+        "{": "}",
+        "[": "]"
+    };
+
+    for (let index = 0; index < brackets.length; index++) {
+        
+        let item = brackets[index];
+
+        if(openBrackets.includes(item)) {
+            stack.push(item);
+            continue;
+        } else if (closeBrackets.includes(item)) {
+            if (stack.length == 0) {
+                return false;
+            }
+
+            check = stack.pop();
+            if (balancedBrackets[check] != item) {
+                return false;
+            }
+        }
+    }
+
+    return stack.length == 0;
 }

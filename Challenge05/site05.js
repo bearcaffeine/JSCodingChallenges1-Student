@@ -30,8 +30,25 @@ function checkAnagram() {
     document.getElementById("results").innerHTML = msg
 }
 
-//takes an two strings and determines if the are anagarms
+//takes an two strings and determines if the are anagrams
 //returns true or false
 function isAnagram(stringA, stringB) {
-   return false;
+
+    //remove all the spaces
+    stringA = stringA.replace(/\s+/g,'');
+    stringB = stringB.replace(/\s+/g,'');
+
+    //check to see if they are the same length
+    if (stringA.length != stringB.length) {
+        return false;
+    }
+
+    //convert to lowercase
+    stringA = stringA.toLowerCase();
+    stringB = stringB.toLowerCase();
+
+    stringA = stringA.split('').sort().join('');
+    stringB = stringB.split('').sort().join('');
+
+    return (stringA == stringB);
 }

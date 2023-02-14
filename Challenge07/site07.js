@@ -28,6 +28,16 @@ function checkPalindrome() {
 //takes an string to check if it is a palindrome.
 //returns true or false. 
 function isPalindrome(str) {
+    
+    str = str.replace(/\W+/g,'');
+    str = str.toLowerCase();
 
+    let strSplit = str.split("");
+    let strArray = strSplit.reverse();
+    let strJoinArray = strArray.join("");
+
+    if (str == strJoinArray) {
+        return true;
+    }
     return false;
 }

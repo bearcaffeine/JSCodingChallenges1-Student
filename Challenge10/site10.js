@@ -23,7 +23,54 @@ function findWords() {
 
 //function to return the top 3 most used words
 function getMostUsedWords(wordText, topN) {
-    return [];
+    let wordCounts = [];
+
+    //convert to lower case for matching
+    wordText = wordText.toLowerCase();
+
+    wordText = wordText.replace(/[^A-Z0-9\s']/ig,"");
+
+    let words = wordText.split(/\s+/g);
+
+    //let words = wordtext.split(' '); <= not very accurate on cleaning the wordtext, just for testing
+
+    let stopWords = getStopWords();
+
+    words = words.filter(words => !stopWords.includes(words));
+
+    for (let index = 0; index < words.length; index++) {
+        
+        let obj = wordCounts.find( w => {
+            return w.word === words[index];
+        });
+
+        if (obj == undefined) {
+            wordCounts.push({
+                "word":words[index],
+                "count":1
+            });
+        } else {
+            obj.count++;
+        }
+    }
+
+    //sort in desc order
+    sortByCount(wordCounts, "desc");
+
+    //grab the top N results
+    wordCounts = wordCounts.slice(0, topN);
+
+    return wordCounts;
+}
+
+function sortByCount(words, sortDir) {
+    words.sort((a,b) => {
+        if (sortDir == "asc") {
+            return a.count - b.count;
+        } else {
+            return b.count - a.count;
+        }
+    });
 }
 
 
